@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Contextuality::VERSION
   gem.authors       = ["pyromaniac"]
   gem.email         = ["kinwizard@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Contextual global variables}
+  gem.summary       = %q{Contextual global variables}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
