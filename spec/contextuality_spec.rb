@@ -26,8 +26,20 @@ describe Contextuality do
     end
 
     specify do
+      contextualize do
+        Contextuality.hello.should be_nil
+      end
+    end
+
+    specify do
       contextualize(:hello => 'world') do
         subject.hello.should == 'world'
+      end
+    end
+
+    specify do
+      contextualize(:hello => 'world') do
+        Contextuality.hello.should == 'world'
       end
     end
 
@@ -74,6 +86,24 @@ describe Contextuality do
             Thread.current[:output] = [subject.hello, subject.goodbye]
           end
         end.join[:output].should == ['world', 'hell']
+      end
+    end
+  end
+
+  context 'defaults' do
+    before { Contextuality.defaults[:foo] = 'Bar' }
+
+    specify { Contextuality.foo.should == 'Bar' }
+
+    specify do
+      contextualize do
+        Contextuality.foo.should == 'Bar'
+      end
+    end
+
+    specify do
+      contextualize(foo: 'Hello') do
+        Contextuality.foo.should == 'Hello'
       end
     end
   end

@@ -15,7 +15,7 @@ module Contextuality
     def [] name
       name = name.to_s
       scope = @scopes.detect { |scope| scope.key? name }
-      scope[name] if scope
+      scope ? scope[name] : Contextuality.defaults[name.to_sym]
     end
 
     def key? name

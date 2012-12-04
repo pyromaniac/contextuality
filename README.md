@@ -71,21 +71,45 @@ end #=> "Hello"
 You can include `Contextuality` in Object and get access to context everywhere,
 or just include in classes on-demand.
 
+# Also `Contextuality` singleton can be used everywhere
+
+```
+contextualize(foo: 'Hello') do
+  Contextuality.foo #=> "Hello"
+end #=> "Hello"
+```
+
+# You can setup default values for any key
+
+```
+Contextuality.defaults[:foo] = 'Hello'
+
+contextualize(foo: 'Goodbye') do
+  Foo.foo #=> "Goodbye"
+end #=> "Goodbye"
+
+contextualize do
+  Foo.foo #=> "Hello"
+end #=> "Hello"
+```
+
 ### More complex example
 
 ```
+
+# config/initializers/contextuality.rb
+Contextuality.defaults[:host] = 'default'
+
+# app/models/article.rb
 class Article < ActiveRecord::Base
   include Contextuality
 
   def self.for_current_host
-    if contextuality.host
-      where(host: contextuality.host)
-    else
-      for_default_host # or just .all
-    end
+    where(host: contextuality.host)
   end
 end
 
+# app/controllers/article_controller.rb
 class ArticlesController < ActionController::Base
   around_filter :setup_host
 

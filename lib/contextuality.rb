@@ -9,6 +9,14 @@ module Contextuality
     end
   end
 
+  def self.method_missing method, *args, &block
+    ::Thread.current.contextuality[method]
+  end
+
+  def self.defaults
+    ::Thread.main[:contextuality_defaults] ||= {}
+  end
+
   module ContextualityMethods
     def contextuality
       ::Thread.current.contextuality
