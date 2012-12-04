@@ -83,8 +83,10 @@ end #=> "Hello"
 
 ```
 Contextuality.defaults[:foo] = 'Hello'
+Contextuality.defaults[:bar] = ->{ 'Hello' }
 
 contextualize(foo: 'Goodbye') do
+  Contextuality.bar #=> 'Hello'
   Foo.foo #=> "Goodbye"
 end #=> "Goodbye"
 

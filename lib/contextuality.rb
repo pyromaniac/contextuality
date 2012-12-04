@@ -1,4 +1,5 @@
 require "contextuality/version"
+require "contextuality/defaults"
 require "contextuality/context"
 
 module Contextuality
@@ -14,7 +15,7 @@ module Contextuality
   end
 
   def self.defaults
-    ::Thread.main[:contextuality_defaults] ||= {}
+    ::Thread.main[:contextuality_defaults] ||= Contextuality::Defaults.new
   end
 
   module ContextualityMethods

@@ -107,4 +107,22 @@ describe Contextuality do
       end
     end
   end
+
+  context 'defaults lambda' do
+    before { Contextuality.defaults[:bar] = ->{ 'Foo' } }
+
+    specify { Contextuality.bar.should == 'Foo' }
+
+    specify do
+      contextualize do
+        Contextuality.bar.should == 'Foo'
+      end
+    end
+
+    specify do
+      contextualize(bar: 'Hello') do
+        Contextuality.bar.should == 'Hello'
+      end
+    end
+  end
 end
