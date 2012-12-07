@@ -18,6 +18,14 @@ module Contextuality
     ::Thread.main[:contextuality_defaults] ||= Contextuality::Defaults.new
   end
 
+  def self.logger= logger
+    @logger = logger
+  end
+
+  def self.log message
+    @logger.info message if @logger
+  end
+
   module ContextualityMethods
     def contextuality
       ::Thread.current.contextuality
