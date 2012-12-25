@@ -90,6 +90,15 @@ describe Contextuality do
     end
   end
 
+  context 'exceptions' do
+    specify do
+      contextualize(:hello => 'world') do
+        raise
+      end rescue nil
+      Contextuality.hello.should == nil
+    end
+  end
+
   context 'defaults' do
     before { Contextuality.defaults[:foo] = 'Bar' }
 

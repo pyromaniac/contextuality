@@ -36,6 +36,7 @@ module Contextuality
     def contextualize variables = {}, &block
       ::Thread.current.contextuality.push variables
       result = block.call
+    ensure
       ::Thread.current.contextuality.pop
       result
     end
